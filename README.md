@@ -19,3 +19,7 @@ A página apresenta um formulário desenvolvido para coletar e validar informaç
 5. Inicie o servidor: python manage.py runserver
 
 6. Acesse no navegador: http://127.0.0.1:8000/
+
+## Como ficou
+
+![image](https://github.com/user-attachments/assets/dd6339ce-229c-4ba9-a434-ae631f774019)
