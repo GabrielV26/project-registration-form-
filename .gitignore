@@ -1,5 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
 
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Django local data
 AppRegister/db.sqlite3
-AppRegister/form_app/migrations/0001_initial.py
-AppRegister/form_app/migrations/__pycache__/0001_initial.cpython-312.pyc
-.idea/vcs.xml
+*.sqlite3
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Editors and OS
+.idea/
+.vscode/
+.DS_Store
