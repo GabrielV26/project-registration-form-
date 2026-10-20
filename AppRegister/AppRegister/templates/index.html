@@ -1,29 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" defer></script>
 </head>
-<script>
-    $(document).ready(function(){
-        $('#cpf').mask('000.000.000-00');
-        $('#rg').mask('00.000.000-0');
-        $('#phone').mask('(00) 0000-0000');
-        $('#mobile').mask('(00) 00000-0000');
-    });
-</script>
 <body>
-    <div class="container mt-5 mb-5">
+    <main class="container mt-5 mb-5">
         <h1>Cadastro</h1>
-        <form method="post">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success" role="status">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        <form method="post" novalidate>
             {% csrf_token %}
+            {% if form.non_field_errors %}
+                <div class="alert alert-danger" role="alert">{{ form.non_field_errors }}</div>
+            {% endif %}
             {{ form.as_p }}
             <button type="submit" class="btn btn-primary">Enviar</button>
         </form>
-    </div>
+    </main>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            if (!window.jQuery || !jQuery.fn.mask) return;
+            jQuery("#cpf").mask("000.000.000-00");
+            jQuery("#rg").mask("00.000.000-0");
+            jQuery("#phone").mask("(00) 0000-0000");
+            jQuery("#mobile").mask("(00) 00000-0000");
+        });
+    </script>
 </body>
 </html>

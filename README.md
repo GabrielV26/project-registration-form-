@@ -1,25 +1,55 @@
-# app-register
+# Formulário de cadastro
 
-Este é um projeto de cadastro desenvolvido com Django e Bootstrap.
+Aplicação de cadastro desenvolvida com Django e Bootstrap. O formulário valida os campos e armazena os registros em SQLite durante o desenvolvimento.
 
-## Explicação
+## Requisitos
 
-A página apresenta um formulário desenvolvido para coletar e validar informações essenciais dos usuários, como nome, e-mail, telefone, endereço, CPF e RG. O formulário inclui validação para garantir a integridade dos dados inseridos e assegurar que as informações no banco de dados sejam confiáveis.
+- Python 3.10 ou superior
+- pip
 
-## Como usar
+## Executar localmente
 
-1. Clone o repositório
+A partir da raiz do repositório:
 
-2. Crie e ative um ambiente virtual
+```bash
+cd AppRegister
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+export DJANGO_DEBUG=true
+export DJANGO_SECRET_KEY="chave-local-apenas-para-desenvolvimento"
+python manage.py migrate
+python manage.py runserver
+```
 
-3. Instale as dependências: pip install -r requirements.txt
+No Windows, ative o ambiente com `.venv\\Scripts\\activate` e defina as variáveis de ambiente no terminal antes de executar os comandos Django.
 
-4. Aplique as migrações: python manage.py migrate
+Acesse http://127.0.0.1:8000/.
 
-5. Inicie o servidor: python manage.py runserver
+## Configuração
 
-6. Acesse no navegador: http://127.0.0.1:8000/
+- `DJANGO_SECRET_KEY`: obrigatório quando `DJANGO_DEBUG=false`; use uma chave forte e secreta.
+- `DJANGO_DEBUG`: mantenha desativado em produção.
+- `DJANGO_ALLOWED_HOSTS`: hosts permitidos separados por vírgula.
+- `DJANGO_SESSION_COOKIE_SECURE` e `DJANGO_CSRF_COOKIE_SECURE`: habilitados por padrão em produção; precisam ser compatíveis com HTTPS.
+- `DJANGO_SECURE_SSL_REDIRECT`: habilite apenas depois de configurar HTTPS corretamente.
+- `DJANGO_SECURE_HSTS_SECONDS`: configure apenas depois de confirmar que o domínio inteiro funciona com HTTPS.
 
-## Como ficou
+Não use a chave de desenvolvimento em produção. Como o formulário trata dados pessoais, restrinja o acesso ao banco e aos registros, evite registrar CPFs/RGs em logs e defina regras de retenção apropriadas.
 
-![image](https://github.com/user-attachments/assets/dd6339ce-229c-4ba9-a434-ae631f774019)
+## Banco de dados
+
+As migrações são versionadas em `form_app/migrations/`. Para aplicar alterações no banco:
+
+```bash
+python manage.py migrate
+python manage.py makemigrations --check --dry-run
+```
+
+## Testes
+
+```bash
+python manage.py test
+python manage.py check
+```
